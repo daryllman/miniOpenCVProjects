@@ -1,14 +1,12 @@
 import cv2
-import sys
 import math
-import time
+import numpy as np
 from os.path import dirname, abspath, join
 
 brightnessVal = 0
 
 #face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-face_cascade_file = join(dirname(dirname(abspath(__file__))),
-                         "haarcascade", "haarcascade_frontalface_default.xml")
+face_cascade_file = join(dirname(dirname(abspath(__file__))), "haarcascade", "haarcascade_frontalface_default.xml")
 faceCascade = cv2.CascadeClassifier(face_cascade_file)
 
 video_capture = cv2.VideoCapture(0)
@@ -26,7 +24,6 @@ out = cv2.VideoWriter("RecordedVid.mp4", fourcc, 60,
 faceSize = 0
 
 while True:
-    time.sleep(0.5)
     # Capture frame-by-frame
     ret, frame = video_capture.read()
 
@@ -35,7 +32,7 @@ while True:
     # Calculate brightness
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     brightnessVal = hsv[2]
-    print(brightnessVal)
+    print("Brightness val: ", np.average(brightnessVal))
 
     faces = faceCascade.detectMultiScale(
         gray,
@@ -88,3 +85,9 @@ video_capture.release()
 out.release()
 cv2.destroyAllWindows()
 print("Video terminated")
+
+
+# cv2.namedWindow('image')
+# cv2.createTrackbar('threshold', 'image', 0, 255, nothing)
+# threshold = cv2.getTrackbarPos('threshold', 'image')
+# _, thresh = cv2.threshold(eyes_gray, threshold, 255, cv2.THRESH_BINARY)
