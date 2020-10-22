@@ -33,6 +33,7 @@ while True:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     brightnessVal = hsv[2]
     print("Brightness val: ", np.average(brightnessVal))
+    # cv2.imwrite('brightness.png', hsv[..., 2])
 
     faces = faceCascade.detectMultiScale(
         gray,
